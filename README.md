@@ -71,7 +71,7 @@ TaskFlow Pro’s client-side interface is designed using **React 18**, **Vite**,
 ### Directory Structure & Responsibilities
 
 ```
-src/
+frondend/src/
 ├── main.tsx                # Client bootstrapper, mounts DOM and Tailwind imports
 ├── App.tsx                 # Main application structure, initializes routers & context providers
 ├── types.ts                # Central TypeScript definitions for entities, APIs, and roles
@@ -138,7 +138,7 @@ axiosInstance.interceptors.response.use(
 
 ---
 
-## ⚙️ Backend Documentation
+## Backend Documentation
 
 The backend of TaskFlow Pro is built on **NestJS (TypeScript)**, utilizing a modular, clean-architecture layout.
 
