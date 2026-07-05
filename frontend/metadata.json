@@ -1,0 +1,6 @@
+{
+  "name": "Task Management System",
+  "description": "A production-grade, multi-tenant Task Management System featuring JWT auth, role-based access control, interactive Kanban boards, and transactional notifications.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
