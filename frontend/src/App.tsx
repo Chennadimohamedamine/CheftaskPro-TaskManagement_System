@@ -1,17 +1,11 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.js';
-import { AppRouter } from './routes/AppRouter.js';
+import { AuthProvider } from './context/AuthContext'; 
+import { AppRouter } from './routes/AppRouter'; 
 import { Toaster } from 'react-hot-toast';
 
 export default function App() {

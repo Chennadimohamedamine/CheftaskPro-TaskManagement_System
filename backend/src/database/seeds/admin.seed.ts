@@ -1,12 +1,7 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import bcrypt from 'bcrypt';
-import { AppDataSource } from '../../config/typeorm.config.js';
-import { User } from '../entities.js';
-import { Role } from '../../common/enums.js';
+import { AppDataSource } from '../../config/typeorm.config';
+import { User } from '../entities'; 
+import { Role } from '../../common/enums';
 
 export async function seedAdmin(): Promise<void> {
   const userRepo = AppDataSource.getRepository(User);
@@ -20,7 +15,7 @@ export async function seedAdmin(): Promise<void> {
   });
 
   if (existingAdmin) {
-    console.log(`🔒 Admin user seed skipped: admin account already exists (${existingAdmin.email})`);
+    console.log(`Admin user seed skipped: admin account already exists (${existingAdmin.email})`);
     return;
   }
 
@@ -41,7 +36,7 @@ export async function seedAdmin(): Promise<void> {
   admin.createdAt = new Date().toISOString();
 
   await userRepo.save(admin);
-  console.log('🎉 Idempotent Admin Seeding Successful!');
+  console.log(' Idempotent Admin Seeding Successful!');
   console.log(`   Email: ${email}`);
   console.log(`   Password: (from .env or secure default)`);
 }

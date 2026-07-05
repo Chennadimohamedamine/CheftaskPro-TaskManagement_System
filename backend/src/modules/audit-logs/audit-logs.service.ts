@@ -1,12 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuditLog } from '../../database/entities.js';
+import { AuditLog } from '../../database/entities'; 
 
 @Injectable()
 export class AuditLogService {

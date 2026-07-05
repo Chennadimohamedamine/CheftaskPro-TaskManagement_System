@@ -1,14 +1,11 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { AuditLogsService } from './audit-logs.service.js';
-import { AuthGuard } from '../auth/auth.guard.js';
-import { RolesGuard } from '../auth/roles.guard.js';
-import { Roles } from '../auth/roles.decorator.js';
-import { Role } from '../../common/enums.js';
+import { AuditLogsService } from './audit-logs.service'; 
+import { AuthGuard } from '../auth/auth.guard'; 
+import { RolesGuard } from '../auth/roles.guard'; 
+import { Roles } from '../auth/roles.decorator'; 
+import { Role } from '../../common/enums'; 
 
 @Controller('api/v1/audit-logs')
 @UseGuards(AuthGuard, RolesGuard)

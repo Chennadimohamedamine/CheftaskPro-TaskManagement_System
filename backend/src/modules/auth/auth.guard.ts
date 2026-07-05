@@ -1,12 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import jwt from 'jsonwebtoken';
-import { AppDataSource } from '../../config/typeorm.config.js';
-import { User } from '../../database/entities.js';
+import { AppDataSource } from '../../config/typeorm.config'; 
+import { User } from '../../database/entities'; 
 
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-access-key-123';
 

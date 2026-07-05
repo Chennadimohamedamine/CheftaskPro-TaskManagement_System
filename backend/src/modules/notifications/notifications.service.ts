@@ -1,12 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Notification } from '../../database/entities.js';
+import { Notification } from '../../database/entities'; 
 import { Subject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 

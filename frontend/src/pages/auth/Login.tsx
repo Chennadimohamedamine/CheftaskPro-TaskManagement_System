@@ -1,11 +1,13 @@
+ 
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext.js';
-import { Button, Input } from '../../components/common/UI.js';
-import { axiosInstance } from '../../api/axios.js';
+import { useAuth } from '../../context/AuthContext'; 
+import { Button, Input } from '../../components/common/UI'; 
+import { axiosInstance } from '../../api/axios'; 
 import { CheckSquare, Facebook, Chrome } from 'lucide-react';
 import toast from 'react-hot-toast';
 

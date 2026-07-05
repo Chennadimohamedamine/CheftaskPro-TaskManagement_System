@@ -1,17 +1,14 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { axiosInstance } from '../../api/axios.js';
-import { Project, Team, Task, Comment, User } from '../../types.js';
-import { Button, Input, Modal, StatusBadge } from '../../components/common/UI.js';
-import { useAuth } from '../../context/AuthContext.js';
+import { axiosInstance } from '../../api/axios'; 
+import { Project, Team, Task, Comment, User } from '../../types'; 
+import { Button, Input, Modal, StatusBadge } from '../../components/common/UI'; 
+import { useAuth } from '../../context/AuthContext'; 
 import {
   ArrowLeft,
   Plus,

@@ -1,14 +1,11 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Bell, LogOut, CheckSquare, ChevronDown, Check } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext.js';
-import { axiosInstance } from '../../api/axios.js';
-import { StatusBadge } from '../common/UI.js';
-import { Notification } from '../../types.js';
+import { useAuth } from '../../context/AuthContext'; 
+import { axiosInstance } from '../../api/axios'; 
+import { StatusBadge } from '../common/UI'; 
+import { Notification } from '../../types'; 
 import toast from 'react-hot-toast';
 
 export const Topbar: React.FC = () => {
@@ -35,6 +32,20 @@ export const Topbar: React.FC = () => {
       fetchNotifications();
     }
   }, [showNotifications]);
+
+  // Listen for real-time notifications received via SSE
+  useEffect(() => {
+    const handleNewNotification = (e: Event) => {
+      const notif = (e as CustomEvent).detail;
+      setNotifications((prev) => {
+        // Prevent duplicate appending (idempotency)
+        if (prev.some((n) => n.id === notif.id)) return prev;
+        return [notif, ...prev];
+      });
+    };
+    window.addEventListener('new_notification', handleNewNotification);
+    return () => window.removeEventListener('new_notification', handleNewNotification);
+  }, []);
 
   // Handle outside clicks to close menus
   useEffect(() => {
@@ -99,11 +110,11 @@ export const Topbar: React.FC = () => {
     <header className="h-16 bg-white border-b border-slate-100 flex items-center justify-between px-6 sticky top-0 z-40 shadow-xs">
       {/* Brand Launcher Logo */}
       <div className="flex items-center space-x-3">
-        <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/10">
-          <CheckSquare className="w-5 h-5" />
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/15">
+          <CheckSquare className="w-5.5 h-5.5" />
         </div>
         <span className="font-display font-bold text-lg tracking-tight text-slate-900">
-          TaskFlow<span className="text-blue-600 font-medium text-xs ml-1 bg-blue-50 px-1.5 py-0.5 rounded">Pro</span>
+          TaskFlow<span className="text-indigo-600 font-bold text-[10px] ml-1.5 bg-indigo-50/80 px-2 py-0.5 rounded-lg border border-indigo-100/30">Pro</span>
         </span>
       </div>
 
@@ -113,51 +124,51 @@ export const Topbar: React.FC = () => {
         <div className="relative" ref={notifRef}>
           <button
             onClick={() => setShowNotifications(!showNotifications)}
-            className="w-10 h-10 rounded-lg hover:bg-slate-50 flex items-center justify-center relative text-slate-500 hover:text-slate-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-100"
+            className="w-10 h-10 rounded-xl hover:bg-slate-50 flex items-center justify-center relative text-slate-500 hover:text-slate-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-100"
           >
             <Bell className="w-5 h-5" />
             {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 bg-red-500 text-white font-sans text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-pulse border border-white">
+              <span className="absolute top-1.5 right-1.5 bg-rose-500 text-white font-sans text-[9px] font-bold h-4.5 w-4.5 rounded-full flex items-center justify-center animate-pulse border-2 border-white">
                 {unreadCount}
               </span>
             )}
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-80 bg-white border border-slate-150 rounded-xl shadow-xl z-50 overflow-hidden py-1 animate-fade-in">
-              <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-                <span className="font-sans font-semibold text-sm text-slate-800">In-App Notifications</span>
+            <div className="absolute right-0 mt-3 w-84 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden py-1.5 animate-fade-in">
+              <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/30">
+                <span className="font-sans font-bold text-xs uppercase tracking-wider text-slate-700">In-App Notifications</span>
                 {unreadCount > 0 && (
                   <button
                     onClick={handleMarkAllAsRead}
-                    className="font-sans font-medium text-xs text-blue-600 hover:text-blue-800 cursor-pointer"
+                    className="font-sans font-bold text-[11px] text-indigo-600 hover:text-indigo-800 cursor-pointer"
                   >
                     Clear all
                   </button>
                 )}
               </div>
 
-              <div className="max-h-64 overflow-y-auto">
+              <div className="max-h-72 overflow-y-auto">
                 {notifications.length === 0 ? (
-                  <div className="py-8 text-center font-sans text-xs text-slate-400">
+                  <div className="py-10 text-center font-sans text-xs text-slate-400">
                     All caught up! No recent updates.
                   </div>
                 ) : (
                   notifications.map((n) => (
                     <div
                       key={n.id}
-                      className={`px-4 py-3 border-b border-slate-50 flex items-start space-x-3 hover:bg-slate-50/50 transition-colors ${!n.isRead ? 'bg-blue-50/20' : ''}`}
+                      className={`px-4 py-3.5 border-b border-slate-50/50 flex items-start space-x-3 hover:bg-slate-50/40 transition-colors ${!n.isRead ? 'bg-indigo-50/10' : ''}`}
                     >
                       <div className="flex-1">
-                        <p className="font-sans text-xs text-slate-600 leading-normal">{n.message}</p>
-                        <span className="font-mono text-[9px] text-slate-400 block mt-1.5">
+                        <p className="font-sans text-xs text-slate-600 leading-relaxed">{n.message}</p>
+                        <span className="font-mono text-[9px] text-slate-400 block mt-2 font-medium">
                           {new Date(n.createdAt).toLocaleTimeString()}
                         </span>
                       </div>
                       {!n.isRead && (
                         <button
                           onClick={(e) => handleMarkAsRead(n.id, e)}
-                          className="w-5 h-5 rounded-full hover:bg-green-100 text-slate-400 hover:text-green-600 flex items-center justify-center cursor-pointer shrink-0"
+                          className="w-5 h-5 rounded-full hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 flex items-center justify-center cursor-pointer shrink-0 transition-colors"
                           title="Mark as read"
                         >
                           <Check className="w-3.5 h-3.5" />
@@ -175,34 +186,34 @@ export const Topbar: React.FC = () => {
         <div className="relative" ref={profileRef}>
           <button
             onClick={() => setShowProfileMenu(!showProfileMenu)}
-            className="flex items-center space-x-2.5 p-1.5 hover:bg-slate-50 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-100 cursor-pointer"
+            className="flex items-center space-x-2.5 p-1.5 hover:bg-slate-50 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-slate-100 cursor-pointer"
           >
             {/* Avatar */}
-            <div className="w-8.5 h-8.5 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-sans font-semibold text-xs text-slate-600 shadow-xs">
+            <div className="w-9 h-9 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-sans font-bold text-xs text-slate-700 shadow-xs">
               {getInitials(user.fullName)}
             </div>
 
             {/* Title / Badge */}
             <div className="text-left hidden md:block">
-              <div className="font-sans font-medium text-xs text-slate-800 tracking-tight">{user.fullName}</div>
-              <div className="font-sans text-[10px] text-slate-400 leading-tight truncate max-w-[140px]">{user.email}</div>
+              <div className="font-sans font-bold text-xs text-slate-800 tracking-tight leading-none mb-1">{user.fullName}</div>
+              <div className="font-sans text-[10px] text-slate-400 leading-none truncate max-w-[140px] font-semibold">{user.email}</div>
             </div>
 
             <ChevronDown className="w-4 h-4 text-slate-400 hidden md:block" />
           </button>
 
           {showProfileMenu && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border border-slate-150 rounded-xl shadow-xl z-50 overflow-hidden py-1.5 animate-fade-in">
-              <div className="px-4 py-2 border-b border-slate-50 mb-1.5">
-                <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 block mb-1">Authenticated As</span>
+            <div className="absolute right-0 mt-3 w-52 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden py-2 animate-fade-in">
+              <div className="px-4 py-2.5 border-b border-slate-50 mb-2">
+                <span className="text-[9px] uppercase font-sans font-bold tracking-widest text-slate-400 block mb-1.5">Authenticated As</span>
                 <StatusBadge status={user.role} />
               </div>
 
               <button
                 onClick={handleLogout}
-                className="w-full text-left px-4 py-2.5 font-sans font-medium text-xs text-red-600 hover:bg-red-50 flex items-center space-x-2 transition-colors duration-200 cursor-pointer"
+                className="w-full text-left px-4 py-3 font-sans font-bold text-xs text-rose-600 hover:bg-rose-50/50 flex items-center space-x-2.5 transition-colors duration-200 cursor-pointer"
               >
-                <LogOut className="w-4 h-4" />
+                <LogOut className="w-4 h-4 shrink-0 text-rose-500" />
                 <span>Sign Out</span>
               </button>
             </div>

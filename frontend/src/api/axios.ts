@@ -1,7 +1,4 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import axios, { AxiosError } from 'axios';
 
@@ -25,7 +22,7 @@ export function setAccessToken(token: string | null) {
 
 export const axiosInstance = axios.create({
   baseURL: API_BASE,
-  withCredentials: true,
+  withCredentials: true, // Crucial for receiving/sending HTTP-only refresh token cookies
   headers: {
     'Content-Type': 'application/json'
   }
@@ -91,7 +88,7 @@ axiosInstance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const refreshResponse = await axiosInstance.post('/auth/refresh', {}, { withCredentials: true });
+        const refreshResponse = await axios.post('/api/v1/auth/refresh', {}, { withCredentials: true });
         const newAccessToken = refreshResponse.data.data.accessToken;
 
         setAccessToken(newAccessToken);

@@ -1,7 +1,4 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { DataSource } from 'typeorm';
 import {
@@ -15,13 +12,9 @@ import {
   AuditLog,
   VerificationToken,
   PasswordResetToken
-} from '../database/entities.js';
-import * as dotenv from 'dotenv';
-dotenv.config();
+} from '../database/entities';
 
-console.log(process.env.DB_HOST);
-const isPostgres = process.env.DB_HOST
-console.log(`Using ${isPostgres} as the database.`);
+const isPostgres = !!process.env.DB_HOST;
 
 export const AppDataSource = new DataSource(
   isPostgres
@@ -50,9 +43,9 @@ export const AppDataSource = new DataSource(
         subscribers: []
       }
     : {
-        type: 'sqlite' as any,
+        type: 'better-sqlite3' as any,
         database: 'database.sqlite',
-        synchronize: true,
+        synchronize: true, // Automatically synchronize schema on startup
         logging: false,
         entities: [
           User,

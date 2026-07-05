@@ -1,7 +1,4 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
@@ -11,11 +8,11 @@ import { Response } from 'express';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AppDataSource } from '../../config/typeorm.config.js';
-import { User, VerificationToken, PasswordResetToken } from '../../database/entities.js';
-import { Role } from '../../common/enums.js';
-import { MailService } from '../mail/mail.service.js';
-import { AuditLogService } from '../audit-logs/audit-logs.service.js';
+import { AppDataSource } from '../../config/typeorm.config'; 
+import { User, VerificationToken, PasswordResetToken } from '../../database/entities'; 
+import { Role } from '../../common/enums'; 
+import { MailService } from '../mail/mail.service'; 
+import { AuditLogService } from '../audit-logs/audit-logs.service'; 
 
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-access-key-123';
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'super-secret-refresh-key-456';
@@ -121,7 +118,7 @@ export class AuthService {
     await this.verifyTokenRepo.save(vToken);
 
     // Send Verification Email
-    const verificationUrl = `${APP_URL}/auth/verify-email?token=${rawToken}`;
+    const verificationUrl = `${APP_URL}/verify-email?token=${rawToken}`;
     await this.mailService.sendChefVerification(savedUser.email, verificationUrl);
 
     await this.auditLogsService.log(savedUser.id, 'chef_register', 'user', savedUser.id, { email: savedUser.email });
@@ -183,7 +180,7 @@ export class AuthService {
     vToken.expiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
     await this.verifyTokenRepo.save(vToken);
 
-    const verificationUrl = `${APP_URL}/auth/verify-email?token=${rawToken}`;
+    const verificationUrl = `${APP_URL}/verify-email?token=${rawToken}`;
     await this.mailService.sendChefVerification(user.email, verificationUrl);
 
     await this.auditLogsService.log(user.id, 'resend_verification', 'user', user.id);
@@ -307,7 +304,7 @@ export class AuthService {
       rToken.expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString(); // 15 min
       await this.resetTokenRepo.save(rToken);
 
-      const resetUrl = `${APP_URL}/auth/reset-password?token=${rawToken}`;
+      const resetUrl = `${APP_URL}/reset-password?token=${rawToken}`;
       await this.mailService.sendForgotPassword(user.email, resetUrl);
       
       await this.auditLogsService.log(user.id, 'password_reset_request', 'user', user.id);
@@ -471,7 +468,7 @@ export class AuthService {
         }
       });
 
-      const { email, name, id } = userRes.data as { email?: string; name?: string; id: string };
+      const { email, name, id } = userRes.data as { email: string; name: string; id: string };
       const userEmail = email || `fb-${id}@example.com`;
 
       return this.handleSocialUserSuccess('facebook', userEmail, name || `Facebook User ${id}`, res);

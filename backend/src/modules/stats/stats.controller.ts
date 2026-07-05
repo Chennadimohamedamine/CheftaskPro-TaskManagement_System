@@ -1,16 +1,13 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Controller, Get, UseGuards, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuthGuard } from '../auth/auth.guard.js';
-import { UsersService } from '../users/users.service.js';
-import { TeamsService } from '../teams/teams.service.js';
-import { ProjectsService } from '../projects/projects.service.js';
-import { Task } from '../../database/entities.js';
+import { AuthGuard } from '../auth/auth.guard'; 
+import { UsersService } from '../users/users.service'; 
+import { TeamsService } from '../teams/teams.service'; 
+import { ProjectsService } from '../projects/projects.service'; 
+import { Task } from '../../database/entities'; 
 
 @Controller('api/v1/stats')
 @UseGuards(AuthGuard)

@@ -1,15 +1,12 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { axiosInstance } from '../../api/axios.js';
-import { Button, Input } from '../../components/common/UI.js';
+import { axiosInstance } from '../../api/axios'; 
+import { Button, Input } from '../../components/common/UI'; 
 import { KeyRound } from 'lucide-react';
 import toast from 'react-hot-toast';
 

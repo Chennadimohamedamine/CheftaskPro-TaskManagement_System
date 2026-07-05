@@ -1,17 +1,14 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Task, Project, User, Comment, TeamMember } from '../../database/entities.js';
-import { Role, TaskStatus, TaskPriority } from '../../common/enums.js';
-import { checkOwnership } from '../../common/guards.js';
-import { MailService } from '../mail/mail.service.js';
-import { NotificationService } from '../notifications/notifications.service.js';
-import { AuditLogService } from '../audit-logs/audit-logs.service.js';
+import { Task, Project, User, Comment, TeamMember } from '../../database/entities'; 
+import { Role, TaskStatus, TaskPriority } from '../../common/enums'; 
+import { checkOwnership } from '../../common/guards'; 
+import { MailService } from '../mail/mail.service'; 
+import { NotificationService } from '../notifications/notifications.service'; 
+import { AuditLogService } from '../audit-logs/audit-logs.service'; 
 
 const APP_URL = process.env.APP_URL || 'http://localhost:3000';
 

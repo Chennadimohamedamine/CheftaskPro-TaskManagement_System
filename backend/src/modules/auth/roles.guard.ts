@@ -1,12 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { CanActivate, ExecutionContext, Injectable, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Role } from '../../common/enums.js';
-import { ROLES_KEY } from './roles.decorator.js';
+import { Role } from '../../common/enums'; 
+import { ROLES_KEY } from './roles.decorator'; 
 
 @Injectable()
 export class RolesGuard implements CanActivate {

@@ -1,13 +1,10 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuditLogsController } from './audit-logs.controller.js';
-import { AuditLogsService } from './audit-logs.service.js';
-import { AuditLog } from '../../database/entities.js';
+import { AuditLogsController } from './audit-logs.controller'; 
+import { AuditLogsService } from './audit-logs.service'; 
+import { AuditLog } from '../../database/entities'; 
 
 @Module({
   imports: [TypeOrmModule.forFeature([AuditLog])],

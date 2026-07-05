@@ -1,15 +1,12 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext.js';
-import { Button, Input } from '../../components/common/UI.js';
+import { useAuth } from '../../context/AuthContext'; 
+import { Button, Input } from '../../components/common/UI'; 
 import { ShieldAlert } from 'lucide-react';
 import toast from 'react-hot-toast';
 

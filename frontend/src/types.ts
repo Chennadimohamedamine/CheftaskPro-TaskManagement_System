@@ -1,9 +1,4 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-export enum Role {
+ export enum Role {
   ADMIN = 'admin',
   CHEF_PROJET = 'chef_projet',
   DEVELOPER = 'developer'

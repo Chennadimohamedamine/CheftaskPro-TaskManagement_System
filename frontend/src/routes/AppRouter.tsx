@@ -1,30 +1,27 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.js';
-import { RoleProtectedRoute } from './RoleProtectedRoute.js';
-import { Topbar } from '../components/layout/Topbar.js';
-import { Sidebar } from '../components/layout/Sidebar.js';
+import { useAuth } from '../context/AuthContext'; 
+import { RoleProtectedRoute } from './RoleProtectedRoute'; 
+import { Topbar } from '../components/layout/Topbar'; 
+import { Sidebar } from '../components/layout/Sidebar'; 
 
 // Auth Pages
-import { Login } from '../pages/auth/Login.js';
-import { RegisterChef } from '../pages/auth/RegisterChef.js';
-import { VerifyEmail } from '../pages/auth/VerifyEmail.js';
-import { ForgotPassword } from '../pages/auth/ForgotPassword.js';
-import { ResetPassword } from '../pages/auth/ResetPassword.js';
-import { ForceChangePassword } from '../pages/auth/ForceChangePassword.js';
+import { Login } from '../pages/auth/Login'; 
+import { RegisterChef } from '../pages/auth/RegisterChef'; 
+import { VerifyEmail } from '../pages/auth/VerifyEmail'; 
+import { ForgotPassword } from '../pages/auth/ForgotPassword'; 
+import { ResetPassword } from '../pages/auth/ResetPassword'; 
+import { ForceChangePassword } from '../pages/auth/ForceChangePassword'; 
 
 // Dashboards
-import { AdminDashboard } from '../pages/admin/Dashboard.js';
-import { ChefDashboard } from '../pages/chef/Dashboard.js';
-import { DeveloperDashboard } from '../pages/developer/Dashboard.js';
+import { AdminDashboard } from '../pages/admin/Dashboard'; 
+import { ChefDashboard } from '../pages/chef/Dashboard'; 
+import { DeveloperDashboard } from '../pages/developer/Dashboard'; 
 
 // Project details
-import { ProjectDetail } from '../pages/chef/ProjectDetail.js';
+import { ProjectDetail } from '../pages/chef/ProjectDetail'; 
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -84,6 +81,80 @@ export const AppRouter: React.FC = () => {
           <RoleProtectedRoute>
             <MainLayout>
               <DashboardSelector />
+            </MainLayout>
+          </RoleProtectedRoute>
+        }
+      />
+
+      {/* Admin Specific Pages */}
+      <Route
+        path="/admin/chefs"
+        element={
+          <RoleProtectedRoute allowedRoles={['admin']}>
+            <MainLayout>
+              <AdminDashboard />
+            </MainLayout>
+          </RoleProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/developers"
+        element={
+          <RoleProtectedRoute allowedRoles={['admin']}>
+            <MainLayout>
+              <AdminDashboard />
+            </MainLayout>
+          </RoleProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/projects"
+        element={
+          <RoleProtectedRoute allowedRoles={['admin']}>
+            <MainLayout>
+              <AdminDashboard />
+            </MainLayout>
+          </RoleProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/audit-logs"
+        element={
+          <RoleProtectedRoute allowedRoles={['admin']}>
+            <MainLayout>
+              <AdminDashboard />
+            </MainLayout>
+          </RoleProtectedRoute>
+        }
+      />
+
+      {/* Chef Specific Pages */}
+      <Route
+        path="/chef/projects"
+        element={
+          <RoleProtectedRoute allowedRoles={['admin', 'chef_projet']}>
+            <MainLayout>
+              <ChefDashboard />
+            </MainLayout>
+          </RoleProtectedRoute>
+        }
+      />
+      <Route
+        path="/chef/teams"
+        element={
+          <RoleProtectedRoute allowedRoles={['admin', 'chef_projet']}>
+            <MainLayout>
+              <ChefDashboard />
+            </MainLayout>
+          </RoleProtectedRoute>
+        }
+      />
+      <Route
+        path="/chef/developers"
+        element={
+          <RoleProtectedRoute allowedRoles={['admin', 'chef_projet']}>
+            <MainLayout>
+              <ChefDashboard />
             </MainLayout>
           </RoleProtectedRoute>
         }

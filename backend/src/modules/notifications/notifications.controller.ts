@@ -1,12 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Controller, Get, Put, Param, UseGuards, BadRequestException, Sse, MessageEvent } from '@nestjs/common';
-import { NotificationService } from './notifications.service.js';
-import { AuthGuard } from '../auth/auth.guard.js';
-import { CurrentUser } from '../auth/user.decorator.js';
+import { NotificationService } from './notifications.service'; 
+import { AuthGuard } from '../auth/auth.guard'; 
+import { CurrentUser } from '../auth/user.decorator'; 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

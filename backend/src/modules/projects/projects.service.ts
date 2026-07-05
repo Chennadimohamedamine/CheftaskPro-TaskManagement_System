@@ -1,16 +1,13 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Project, Team, TeamMember, User } from '../../database/entities.js';
-import { Role, ProjectStatus } from '../../common/enums.js';
-import { checkOwnership } from '../../common/guards.js';
-import { NotificationService } from '../notifications/notifications.service.js';
-import { AuditLogService } from '../audit-logs/audit-logs.service.js';
+import { Project, Team, TeamMember, User } from '../../database/entities'; 
+import { Role, ProjectStatus } from '../../common/enums'; 
+import { checkOwnership } from '../../common/guards'; 
+import { NotificationService } from '../notifications/notifications.service'; 
+import { AuditLogService } from '../audit-logs/audit-logs.service'; 
 
 @Injectable()
 export class ProjectsService {

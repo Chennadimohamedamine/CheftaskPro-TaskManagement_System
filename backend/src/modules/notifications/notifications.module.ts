@@ -1,13 +1,10 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { NotificationsController } from './notifications.controller.js';
-import { NotificationService } from './notifications.service.js';
-import { Notification } from '../../database/entities.js';
+import { NotificationsController } from './notifications.controller'; 
+import { NotificationService } from './notifications.service'; 
+import { Notification } from '../../database/entities'; 
 
 @Module({
   imports: [TypeOrmModule.forFeature([Notification])],

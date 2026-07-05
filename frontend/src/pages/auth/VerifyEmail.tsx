@@ -1,12 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { axiosInstance } from '../../api/axios.js';
-import { Button } from '../../components/common/UI.js';
+import { axiosInstance } from '../../api/axios'; 
+import { Button } from '../../components/common/UI'; 
 import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
 
 export const VerifyEmail: React.FC = () => {

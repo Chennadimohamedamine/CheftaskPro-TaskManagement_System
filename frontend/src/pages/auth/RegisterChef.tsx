@@ -1,11 +1,13 @@
+ 
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext.js';
-import { Button, Input } from '../../components/common/UI.js';
-import {  ShieldCheck } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext'; 
+import { Button, Input } from '../../components/common/UI'; 
+import { CheckSquare, ShieldCheck } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const registerSchema = z.object({

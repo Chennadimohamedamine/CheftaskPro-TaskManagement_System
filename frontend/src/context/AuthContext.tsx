@@ -1,6 +1,9 @@
+ 
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { axiosInstance, setAccessToken } from '../api/axios.js';
-import { User } from '../types.js';
+import { axiosInstance, setAccessToken, getAccessToken } from '../api/axios'; 
+import { User } from '../types'; 
+import toast from 'react-hot-toast';
 
 interface AuthContextType {
   user: User | null;
@@ -37,7 +40,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const refreshSession = async () => {
     try {
       const res = await axiosInstance.post('/auth/refresh', {});
-      console.log(res.data);
       if (res.data.success) {
         const at = res.data.data.accessToken;
         setAccessToken(at);
@@ -85,11 +87,69 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, []);
 
-  // Poll notifications in background when logged in
+  // Subscribe to real-time push notifications via SSE
   useEffect(() => {
     if (!user) return;
-    const interval = setInterval(fetchUnreadCount, 30000); // 30s
-    return () => clearInterval(interval);
+
+    // Fetch initial count
+    fetchUnreadCount();
+
+    let eventSource: EventSource | null = null;
+    let reconnectTimeout: any = null;
+
+    const connectSSE = () => {
+      const token = getAccessToken();
+      if (!token) return;
+
+      const sseUrl = `${window.location.origin}/api/v1/notifications/sse?token=${encodeURIComponent(token)}`;
+      eventSource = new EventSource(sseUrl);
+
+      eventSource.onmessage = (event) => {
+        try {
+          const notif = JSON.parse(event.data);
+          // Increment unread count in real-time
+          setUnreadCount((prev) => prev + 1);
+
+          // Dispatch a global event so other components (e.g. Topbar) can append to list
+          window.dispatchEvent(new CustomEvent('new_notification', { detail: notif }));
+
+          // Show a beautiful in-app toast for immediate visibility
+          toast(notif.message, {
+            icon: '🔔',
+            duration: 6000,
+            style: {
+              background: '#0F172A',
+              color: '#FFFFFF',
+              fontSize: '13px',
+              borderRadius: '10px',
+              fontWeight: 500,
+            },
+          });
+        } catch (err) {
+          console.error('Failed to parse real-time notification event:', err);
+        }
+      };
+
+      eventSource.onerror = (err) => {
+        console.error('SSE Connection lost. Retrying...', err);
+        if (eventSource) {
+          eventSource.close();
+        }
+        // Graceful automatic reconnection
+        reconnectTimeout = setTimeout(connectSSE, 5000);
+      };
+    };
+
+    connectSSE();
+
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+      if (reconnectTimeout) {
+        clearTimeout(reconnectTimeout);
+      }
+    };
   }, [user]);
 
   const login = async (email: string, password: string): Promise<User> => {

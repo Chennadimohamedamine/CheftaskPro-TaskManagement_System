@@ -1,12 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import React, { useEffect, useState } from 'react';
-import { axiosInstance } from '../../api/axios.js';
-import { Task, Comment } from '../../types.js';
-import { StatusBadge, Modal, Button } from '../../components/common/UI.js';
+import { axiosInstance } from '../../api/axios'; 
+import { Task, Comment } from '../../types'; 
+import { StatusBadge, Modal, Button } from '../../components/common/UI'; 
 import {
   CheckSquare,
   MessageSquare,

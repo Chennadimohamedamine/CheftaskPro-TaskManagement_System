@@ -1,12 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Controller, Post, Get, Body, Req, Res, Query, UseGuards, BadRequestException } from '@nestjs/common';
-import { AuthService } from './auth.service.js';
-import { AuthGuard } from './auth.guard.js';
-import { CurrentUser } from './user.decorator.js';
+import { AuthService } from './auth.service'; 
+import { AuthGuard } from './auth.guard'; 
+import { CurrentUser } from './user.decorator'; 
 
 @Controller('api/v1/auth')
 export class AuthController {

@@ -1,15 +1,12 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { StatsController } from './stats.controller.js';
-import { UsersModule } from '../users/users.module.js';
-import { TeamsModule } from '../teams/teams.module.js';
-import { ProjectsModule } from '../projects/projects.module.js';
-import { Task } from '../../database/entities.js';
+import { StatsController } from './stats.controller'; 
+import { UsersModule } from '../users/users.module'; 
+import { TeamsModule } from '../teams/teams.module'; 
+import { ProjectsModule } from '../projects/projects.module'; 
+import { Task } from '../../database/entities'; 
 
 @Module({
   imports: [

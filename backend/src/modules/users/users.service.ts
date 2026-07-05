@@ -1,16 +1,13 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
 
 import crypto from 'crypto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User, PasswordResetToken, Team, TeamMember } from '../../database/entities.js';
-import { Role } from '../../common/enums.js';
-import { MailService } from '../mail/mail.service.js';
-import { AuditLogService } from '../audit-logs/audit-logs.service.js';
+import { User, PasswordResetToken, Team, TeamMember } from '../../database/entities'; 
+import { Role } from '../../common/enums'; 
+import { MailService } from '../mail/mail.service'; 
+import { AuditLogService } from '../audit-logs/audit-logs.service'; 
 
 const APP_URL = process.env.APP_URL || 'http://localhost:3000';
 
@@ -66,7 +63,7 @@ export class UsersService {
     await this.resetTokenRepo.save(resetToken);
 
     // Send Invitation Email
-    const setupUrl = `${APP_URL}/auth/reset-password?token=${rawToken}`;
+    const setupUrl = `${APP_URL}/reset-password?token=${rawToken}`;
     await this.mailService.sendDeveloperInvitation(savedUser.email, creator.fullName, setupUrl);
 
     await this.auditLogsService.log(creator.id, 'developer_created', 'user', savedUser.id, {
